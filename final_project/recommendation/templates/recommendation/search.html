@@ -2,7 +2,87 @@
 {% block content %}
 
 <!-- ユーザーが好きなアニメのタイトルを入力できるページ -->
+    <div class="container pt-5">
+        <form action="{% url 'candidates' %}" method="POST" id="post-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="animeTitle">Keywords</label>
+                <input type="text" class="form-control" id="animeTitle" placeholder="Keyword in English" list="animeTitle_candidates" required>
+                <datalist id="animeTitle_candidates">
+                </datalist>
+            </div>
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+    </div>
 
+    <!-- table -->
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Anime Stored in data</th>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // インクリメンタルサーチ実装部分
+        $(document).on('keyup', '#animeTitle', function(e) {
+            var input = $.trim($(this).val()); // trim()でキーワード前後の空白を削除
+            $.ajax({
+                type: 'GET',
+                url: "{% url 'candidates' %}",
+                data: {
+                    keyword: input,
+                },
+                dataType: 'json'
+            })
+            .done(function(json) {
+                $('#animeTitle_candidates').empty();  // 現時点でのoptionを削除する
+                const candidates = json['candidates'];
+                for (let i = 0; i < candidates.length; i++) {
+                    let optionTag = $("<option />");
+                    optionTag.attr("value", candidates[i]);
+                    $("#animeTitle_candidates").append(optionTag);
+                }
+            })
+            .fail(function() {
+                alert('fail to search');
+            })
+        })
+
+        // レコメンドシステム実装部
+        $(document).on('submit', '#post-form', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'recommendation' %}",
+                data: {
+                    animeTitle:$('#animeTitle').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                }
+            })
+            .done(function(json) {
+                document.forms["post-form"].reset();
+                const recommendation = json['recommendation'];
+                // tableBody下のtrをすべて削除する
+                $('#tableBody').empty();
+                // 取得したデータをテーブル形式にしてhtmlに埋め込む
+                for (let i = 0; i < recommendation.length; i++) {
+                    let trTag = $("<tr />");
+                    trTag.append($("<th></th>").text(i+1)).attr("scope", "row");
+                    trTag.append($("<td></td>").text(recommendation[i]));
+                    $("#tableBody").append(trTag);
+                }
+            })
+            .fail(function() {
+                alert('fail to recommend');
+            });
+        });
+    </script>
 
 
 {% endblock content %}
