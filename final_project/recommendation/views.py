@@ -11,12 +11,6 @@ def index(request):
     }
     return render(request, 'recommendation/index.html', context)
 
-def select(request):
-    context = {
-        'title': 'select',
-    }
-    return render(request, 'recommendation/select.html', context)
-
 def search(request):
     context = {
         'title': 'search',
@@ -24,27 +18,34 @@ def search(request):
     return render(request, 'recommendation/search.html', context)
 
 def candidates(request):
-    result = ''
+    if request.method == 'GET':
+        keyword = request.GET.get('keyword')
+        try:
+            pickle_path = BASE_DIR + '\machine_learning\\anime_title_df.pickle'
+            with open(pickle_path, 'rb') as f:
+                anime_title_df = pickle.load(f)
+                candidates = anime_title_df[anime_title_df['name'].str.contains(keyword)]['name'].tolist() #検索キーワードを含むアニメタイトルをリストにして返す
+                return JsonResponse({'candidates': candidates})
+        except:
+            print('Error to open a file')
+            return HttpResponse('error to get open pickle file')
+    else:
+        return HttpResponse('error to get post request')
+
+def recommendation(request):
     if request.method == 'POST':
         animeTitle = request.POST.get('animeTitle')
         try:
             pickle_path = BASE_DIR + '\machine_learning\\item_sim_df.pickle'
             with open(pickle_path, 'rb') as f:
                 item_sim_df = pickle.load(f)
-                candidates = item_sim_df.sort_values(by=animeTitle, ascending=False).index[1:11]
-                candidates = candidates.tolist()
-                return JsonResponse({'animeTitle': animeTitle, 
-                                     'candidates': candidates})
-
+                recommendation = item_sim_df.sort_values(by=animeTitle, ascending=False).index[1:11].tolist()
+                return JsonResponse({'recommendation': recommendation})
         except:
             print('Error to open a file')
-        return HttpResponse('error to get open pickle file')
+            return HttpResponse('error to get open pickle file')
     else:
         return HttpResponse('error to get post request')
-
-
-def search_result(request):
-    pass
 
 def category(reqeust):
     context = {
