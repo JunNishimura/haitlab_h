@@ -2,6 +2,11 @@
  * Globals
  */
 
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+
 /* Links */
 a,
 a:focus,
