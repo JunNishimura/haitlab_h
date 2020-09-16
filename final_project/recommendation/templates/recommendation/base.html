@@ -15,9 +15,13 @@
         {% endblock head %}
     </head>
     <body>
-        <!-- Header(大住) -->
+        <!-- Header -->
+        <nav class="navbar navbar-light bg-secondary">
+            <div class="container">
+                <a class="navbar-brand text-light" href="{% url 'index' %}">Home</a>
+            </div>
+        </nav>
         
-
         <!-- overwritten by other scripts -->
         {% block content %}
         {% endblock %}
