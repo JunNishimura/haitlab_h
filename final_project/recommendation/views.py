@@ -47,7 +47,7 @@ def recommendation(request):
     else:
         return HttpResponse('error to get post request')
 
-def category(reqeust):
+def category(request):
     context = {
         'title': 'category',
     }
