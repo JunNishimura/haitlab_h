@@ -2,6 +2,22 @@
 
 {% block content %}
 
-<h1>Hello World from category_result</h1>
+    <div class="container mt-5">
+        <h2 class="text-center">{{ genre }}</h2>
+        <table class="table">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Anime Stored in data</th>
+            </thead>
+            <tbody id="tableBody">
+                {% for k, v in top10.items %}
+                    <tr>
+                        <th scope="row">{{k}}</th>
+                        <td>{{v}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock content %}
