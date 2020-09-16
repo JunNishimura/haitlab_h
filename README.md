@@ -2,4 +2,4 @@
 
 ## TODO
 - add category page
-- インクリメンタルサーチのdatalistからdropdownへの変更
+- インクリメンタルサーチのdatalistからdropdownへの変更 [参考](https://lsd-blog.com/autocomplete/)
