@@ -17,14 +17,30 @@
 
     <!-- table -->
     <div class="container mt-5">
-        <table class="table">
-            <thead>
-                <th scope="col">#</th>
-                <th scope="col">Anime Stored in data</th>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-center">Top10</h1>
+                <table class="table">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Anime Title</th>
+                    </thead>
+                    <tbody id="tableBody-top10">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h1 class="text-center">Unknown10</h1>
+                <table class="table">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Anime Title</th>
+                    </thead>
+                    <tbody id="tableBody-unknown10">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -53,6 +69,19 @@
             })
         })
 
+        // function to fill the table having the given id with the given items
+        function set_table(id_name, item_list) {
+            // tableBody-top10下のtrをすべて削除する
+            $(id_name).empty();
+            // 取得したデータをテーブル形式にしてhtmlに埋め込む
+            for (let i = 0; i < item_list.length; i++) {
+                let trTag = $("<tr />");
+                trTag.append($("<th></th>").text(i+1)).attr("scope", "row");
+                trTag.append($("<td></td>").text(item_list[i]));
+                $(id_name).append(trTag);
+            }                        
+        }
+
         // レコメンドシステム実装部
         $(document).on('submit', '#post-form', function(e) {
             e.preventDefault();
@@ -67,16 +96,16 @@
             })
             .done(function(json) {
                 document.forms["post-form"].reset();
-                const recommendation = json['recommendation'];
-                // tableBody下のtrをすべて削除する
-                $('#tableBody').empty();
-                // 取得したデータをテーブル形式にしてhtmlに埋め込む
-                for (let i = 0; i < recommendation.length; i++) {
-                    let trTag = $("<tr />");
-                    trTag.append($("<th></th>").text(i+1)).attr("scope", "row");
-                    trTag.append($("<td></td>").text(recommendation[i]));
-                    $("#tableBody").append(trTag);
-                }
+
+                // ----------------------------------------------------//
+                // top10 table //
+                const top10 = json['top10'];
+                set_table('#tableBody-top10', top10);
+
+                // ----------------------------------------------------//
+                // unknown10 table //
+                const unknown10 = json['worst10'];
+                set_table('#tableBody-unknown10', unknown10);
             })
             .fail(function() {
                 alert('fail to recommend');
