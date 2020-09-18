@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
   </head>
-  <body  class="text-center" >
+  <body  class="text-center bg" >
     <a id="skippy" class="sr-only sr-only-focusable" href="#content">
       <div class="container">
         <span class="skiplink-text">Skip to main content</span>
@@ -22,8 +22,8 @@
       </header>
 
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">アニメ紹介</h1>
-        <h2 class="lead">あなたの好きな作品からオススメのアニメを調査して紹介します</h2>
+        <h1 class="cover-heading mb-5">新たな出会いを</h1>
+        <h2 class="lead">アニメレコメンドシステム</h2>
         <p class="lead">
           <a href="{% url 'search' %}" class="btn btn-lg btn-primary">好きなアニメから</a>
         
@@ -34,7 +34,7 @@
       <!-- フォーマット調整のため、中身は空のままfooterタグを残している -->
       <footer class="mastfoot mt-auto">
       </footer>
-    </div>
+    </div>      
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
