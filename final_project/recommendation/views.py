@@ -77,12 +77,12 @@ def category_result(request, genre):
                 # for anime in top10_animes:
                 #     # 各アニメを検索キーワードとした視聴回数の最も多いyoutubeリンクを取得する
                 #     search_response = youtube.search().list(
-                #         part='id,snippet',
+                #         part='snippet',
                 #         q=anime,
                 #         order='viewCount',
                 #         type='video',
                 #     ).execute()
-                #     link = 'https://www.youtube.com/watch?v=' + search_response['items'][0]['id']['videoId']
+                #     link = "https://www.youtube.com/watch?v=" + search_response['items'][0]['id']['videoId']
                 #     youtube_links.append(link)
 
                 context = {
