@@ -122,3 +122,5 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL  = '/media/'
+
+YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
