@@ -1,23 +1,47 @@
 {% extends "recommendation/base.html" %}
 
 {% block content %}
-
     <div class="container mt-5">
-        <h2 class="text-center">{{ genre }}</h2>
-        <table class="table">
-            <thead>
-                <th scope="col">#</th>
-                <th scope="col">Anime Stored in data</th>
-            </thead>
-            <tbody id="tableBody">
-                {% for k, v in top10.items %}
-                    <tr>
-                        <th scope="row">{{k}}</th>
-                        <td>{{v}}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h1 class="text-center">{{ genre }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">top10</h2>
+                <table class="table">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Anime Title</th>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for k, v in top10.items %}
+                            <tr>
+                                <th scope="row">{{k}}</th>
+                                <td><a href="">{{v}}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-center">unknown10</h2>
+                <table class="table">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Anime Title</th>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for k, v in worst10.items %}
+                            <tr>
+                                <th scope="row">{{k}}</th>
+                                <td><a href="">{{v}}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+    {{ links }}
+
 
 {% endblock content %}
