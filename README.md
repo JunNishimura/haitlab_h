@@ -18,8 +18,8 @@
 ![search](https://user-images.githubusercontent.com/28744711/93694097-b87f8680-fb42-11ea-8eda-c4970bc2b2cb.png)
 
 #### ジャンル選択 / レコメンド表示
-![genre-result](https://user-images.githubusercontent.com/28744711/93694093-b1f10f00-fb42-11ea-975a-6cde9463ea4d.png)
 ![genre-search](https://user-images.githubusercontent.com/28744711/93694094-b1f10f00-fb42-11ea-8f3e-40853853be72.png)
+![genre-result](https://user-images.githubusercontent.com/28744711/93694093-b1f10f00-fb42-11ea-975a-6cde9463ea4d.png)
 
 ## system overview
 - ユーザーからの入力として好きなアニメタイトルを受け取りアニメをレコメンドする。
